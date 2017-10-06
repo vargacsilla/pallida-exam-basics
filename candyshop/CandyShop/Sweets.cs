@@ -8,7 +8,7 @@ namespace CandyShop
 {
     class Sweets
     {
-        public static int price;
+        public int price;
         public int sugarNeeded;
     }
 }

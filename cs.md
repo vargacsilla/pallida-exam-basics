@@ -32,8 +32,8 @@ The application is accepted if:
 
 ###  What is the difference between a function and a method? [2p]
 #### Your answer:
-[add your answer here]
+in c# nothing (in practice), classes' functions are called methods
 
 ### What is the constructor? When it is used? [2p]
 #### Your answer:
-[add your answer here]
+the constructor sets the value for the class' field parameters, it is used when an object is created

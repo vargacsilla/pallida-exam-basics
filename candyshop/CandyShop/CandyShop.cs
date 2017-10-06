@@ -13,31 +13,41 @@ namespace CandyShop
 
         int sugarStored;
         int income;
-        List<Sweets> inventory = new List<Sweets>();
+        List<List<Sweets>> inventory = new List<List<Sweets>>();
 
         public CandyShop(int sugarStored)
         {
+            inventory.Add(new List<Sweets>());
+            inventory.Add(new List<Sweets>());
             this.sugarStored = sugarStored;
         }
 
-        public void MakeSweets(Sweets sweetToAdd)
+        public void CreateSweets(Sweets sweetToAdd)
         {
             if (sweetToAdd.GetType().Name == "Candy")
             {
-                inventory.Add(new Candy());
+                inventory[0].Add(new Candy());
                 sugarStored -= CANDY.sugarNeeded;
             }
             if (sweetToAdd.GetType().Name == "Lollipop")
             {
-                inventory.Add(new Lollipop());
+                inventory[1].Add(new Lollipop());
                 sugarStored -= LOLLIPOP.sugarNeeded;
             }
         }
 
-        public void SellSweets()
+        public void SellSweets(Sweets sweetsToSell, int piece)
         {
-
-            
+            if (sweetsToSell.GetType().Name == "Candy")
+            {
+                inventory[0].RemoveRange(0, piece);
+                income += CANDY.price;
+            }
+            if (sweetsToSell.GetType().Name == "Lollipop")
+            {
+                inventory[1].RemoveRange(0, piece);
+                income += LOLLIPOP.price;
+            }
         }
 
         public void BuySugar(int amount)
@@ -48,33 +58,13 @@ namespace CandyShop
 
         public void RaisePrice(int percentage)
         {
-            Sweets.price += Sweets.price * (percentage / 100);
+            CANDY.price += CANDY.price * (percentage / 100);
+            LOLLIPOP.price += LOLLIPOP.price * (percentage / 100);
         }
 
         public void PrintInfo()
         {
-            var candyList = new List<Sweets>();
-            var lollipopList = new List<Sweets>();
-            try
-            {
-                foreach (var sweet in inventory)
-                {
-                    if (sweet.GetType().Name == "Candy")
-                    {
-                        candyList.Add(sweet);
-                    }
-                    else
-                    {
-                        lollipopList.Add(sweet);
-                    }
-                }
-            
-                Console.WriteLine($"Inventory: {candyList.Count} candies, {lollipopList.Count} lollipops, Income: {income}$, Sugar: {sugarStored} gr");
-            }
-            catch
-            {
-                Console.WriteLine($"Inventory: your shop is empty, Income: {income}$, Sugar: {sugarStored} gr");
-            }
+            Console.WriteLine($"Inventory: {inventory[0].Count} candies, {inventory[1].Count} lollipops, Income: {income}$, Sugar: {sugarStored} gr");
         }
     }
 }
