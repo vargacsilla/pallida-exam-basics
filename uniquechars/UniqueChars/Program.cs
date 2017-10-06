@@ -12,22 +12,28 @@ namespace UniqueChars
         {
         }
 
-        private static List<char> UniqueCharacters(string inputString)
+        public static List<char> UniqueCharacters(string inputString)
         {
             var charList = new List<char>();
-            foreach (var letter in inputString)
+            try
             {
-                try
+                for (int i = 0; i < inputString.Length; i++)
                 {
-                    int existingIndex = charList.IndexOf(letter);
-                    charList.RemoveAt(existingIndex);
+                    if (charList.IndexOf(inputString[i]) == -1)
+                    {
+                        charList.Add(inputString[i]);
+                    }
+                    else
+                    {
+                        charList.RemoveAt(charList.IndexOf(inputString[i]));
+                    }
                 }
-                catch
-                {
-                    charList.Add(letter);
-                }
+                return charList;
             }
-            return charList;
+            catch
+            {
+                return charList;
+            }
         }
     }
 }
