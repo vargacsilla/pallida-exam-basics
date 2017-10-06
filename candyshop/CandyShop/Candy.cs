@@ -8,5 +8,10 @@ namespace CandyShop
 {
     class Candy : Sweets
     {
+        public Candy()
+        {
+            price = 20;
+            sugarNeeded = 10;
+        }
     }
 }

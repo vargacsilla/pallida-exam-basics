@@ -8,33 +8,73 @@ namespace CandyShop
 {
     class CandyShop
     {
+        public static readonly Candy CANDY = new Candy();
+        public static readonly Lollipop LOLLIPOP = new Lollipop();
+
         int sugarStored;
         int income;
-        List<Sweets> inventory;
+        List<Sweets> inventory = new List<Sweets>();
 
-        public void MakeSweets()
+        public CandyShop(int sugarStored)
         {
-            //TODO
+            this.sugarStored = sugarStored;
+        }
+
+        public void MakeSweets(Sweets sweetToAdd)
+        {
+            if (sweetToAdd.GetType().Name == "Candy")
+            {
+                inventory.Add(new Candy());
+                sugarStored -= CANDY.sugarNeeded;
+            }
+            if (sweetToAdd.GetType().Name == "Lollipop")
+            {
+                inventory.Add(new Lollipop());
+                sugarStored -= LOLLIPOP.sugarNeeded;
+            }
         }
 
         public void SellSweets()
         {
-            //TODO
+
+            
         }
 
-        public void BuySugar()
+        public void BuySugar(int amount)
         {
-            //TODO
+            sugarStored += amount;
+            income -= amount * (1000 / 100);
         }
 
-        public void RaisePrice()
+        public void RaisePrice(int percentage)
         {
-            //TODO
+            Sweets.price += Sweets.price * (percentage / 100);
         }
 
         public void PrintInfo()
         {
-            //TODO
+            var candyList = new List<Sweets>();
+            var lollipopList = new List<Sweets>();
+            try
+            {
+                foreach (var sweet in inventory)
+                {
+                    if (sweet.GetType().Name == "Candy")
+                    {
+                        candyList.Add(sweet);
+                    }
+                    else
+                    {
+                        lollipopList.Add(sweet);
+                    }
+                }
+            
+                Console.WriteLine($"Inventory: {candyList.Count} candies, {lollipopList.Count} lollipops, Income: {income}$, Sugar: {sugarStored} gr");
+            }
+            catch
+            {
+                Console.WriteLine($"Inventory: your shop is empty, Income: {income}$, Sugar: {sugarStored} gr");
+            }
         }
     }
 }
