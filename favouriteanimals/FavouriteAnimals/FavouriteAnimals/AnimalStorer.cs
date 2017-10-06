@@ -9,21 +9,24 @@ namespace FavouriteAnimals
 {
     class AnimalStorer
     {
-        List<string> animals;
         string path = @"../../favourites.txt";
+        List<string> animals;
 
-        public void AddAnimal(string inputAnimal)
+        public void AddAnimals(string[] inputAnimals)
         {
-            if (animals.Contains(inputAnimal))
+            animals = File.ReadAllLines(path).ToList<string>();
+            foreach (var newAnimal in inputAnimals)
             {
-                return;
-            }
-            else
-            {
-                animals.Add(inputAnimal);
-                using (StreamWriter writer = File.AppendText(path))
+                if (animals.Contains(newAnimal))
                 {
-                    writer.WriteLine(inputAnimal);
+                    return;
+                }
+                else
+                {
+                    using (StreamWriter writer = File.AppendText(path))
+                    {
+                        writer.WriteLine(newAnimal);
+                    }
                 }
             }
         }

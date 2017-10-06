@@ -10,6 +10,16 @@ namespace FavouriteAnimals
     {
         static void Main(string[] args)
         {
+            var favouriteAnimals = new AnimalStorer();
+
+            if (args.Length == 0)
+            {
+                Console.WriteLine("C# FavouriteAnimals - add your favourite in the following format: \"panda horse bear\"");
+            }
+            else
+            {
+                favouriteAnimals.AddAnimals(args);
+            }
         }
     }
 }
